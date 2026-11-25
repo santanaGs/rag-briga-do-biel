@@ -10,6 +10,6 @@ EMBEDDING_MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
 
 CHUNK_SIZE = 600
 CHUNK_OVERLAP = 100
-TOP_K = 4
+TOP_K = 4 
 
 CLAUDE_MODEL = "claude-haiku-5-5"
