@@ -23,8 +23,17 @@ def answer(question: str, chunks: list[dict]) -> str:
 
     response = client.messages.create(
         model=CLAUDE_MODEL,
-        max_tokens=1024,     
+        max_tokens=2048,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_msg}],
     )
-    return response.content[0].text
+
+    # A resposta pode trazer outros blocos além de texto (ex.: "thinking"),
+    # então junta apenas os blocos do tipo "text".
+    text = "".join(b.text for b in response.content if b.type == "text").strip()
+
+    if not text:
+        raise RuntimeError(
+            f"O Claude não retornou texto (stop_reason={response.stop_reason})."
+        )
+    return text
